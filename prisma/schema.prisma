@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model articulos {
+  codigoarticulo Int          @id
+  nombre         String?      @db.VarChar(50)
+  color          String?      @db.VarChar(50)
+  medidas        String?      @db.VarChar(50)
+  fabricante     Int?
+  precioventa    Decimal?     @db.Decimal(10, 2)
+  fabricantes    fabricantes? @relation(fields: [fabricante], references: [codigofabricante], onDelete: NoAction, onUpdate: NoAction)
+  envios         envios[]
+  ventas         ventas[]
+}
+
+model clientes {
+  rif       Int        @id
+  nombre    String?    @db.VarChar(50)
+  direccion String?    @db.VarChar(50)
+  poblacion String?    @db.VarChar(50)
+  telefono  String?    @db.VarChar(50)
+  facturas  facturas[]
+  ventas    ventas[]
+}
+
+model envios {
+  codigoenvio    Int        @id
+  fecha          DateTime?  @db.Date
+  articulo       Int?
+  numerounidades Int?
+  articulos      articulos? @relation(fields: [articulo], references: [codigoarticulo], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model fabricantes {
+  codigofabricante Int         @id
+  nombre           String?     @db.VarChar(50)
+  direccion        String?     @db.VarChar(50)
+  poblacion        String?     @db.VarChar(50)
+  telefono         String?     @db.VarChar(50)
+  formapago        String?     @db.VarChar(50)
+  articulos        articulos[]
+}
+
+model facturas {
+  codigofactura Int       @id
+  fecha         DateTime? @db.Date
+  cliente       Int?
+  totalfactura  Decimal?  @db.Decimal(10, 2)
+  formapago     String?   @db.VarChar(50)
+  vencimiento   DateTime? @db.Date
+  clientes      clientes? @relation(fields: [cliente], references: [rif], onDelete: NoAction, onUpdate: NoAction)
+  ventas        ventas[]
+}
+
+model ventas {
+  codigoventa     Int        @id
+  fecha           DateTime?  @db.Date
+  cliente         Int?
+  numeroarticulos Int?
+  articulo        Int?
+  preciounidad    Decimal?   @db.Decimal(10, 2)
+  preciototal     Decimal?   @db.Decimal(10, 2)
+  codigofactura   Int?
+  articulos       articulos? @relation(fields: [articulo], references: [codigoarticulo], onDelete: NoAction, onUpdate: NoAction)
+  clientes        clientes?  @relation(fields: [cliente], references: [rif], onDelete: NoAction, onUpdate: NoAction)
+  facturas        facturas?  @relation(fields: [codigofactura], references: [codigofactura], onDelete: NoAction, onUpdate: NoAction)
+}
