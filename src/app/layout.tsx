@@ -1,4 +1,6 @@
 import './globals.css';
+import NavBar from '@/app/layout/NavBar';
+import CssBaseline from '@mui/material/CssBaseline';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -16,7 +18,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <CssBaseline />
+                <NavBar />
+                {children}
+            </body>
         </html>
     );
 }
