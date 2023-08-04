@@ -1,4 +1,4 @@
-import './globals.css';
+// import './globals.css';
 import NavBar from '@/app/layout/NavBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Metadata } from 'next';

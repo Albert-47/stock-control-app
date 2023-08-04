@@ -1,11 +1,10 @@
 'use client';
-import { useEffect } from 'react';
-import axios from '../libs/axios';
-import ArticlesTable from './articulos/components/ArticlesTable';
+import axios from '@/libs/axios';
+import ClientsTable from './components/ClientsTable';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { ArticleForm } from './articulos/components/ArticleForm';
+import { ClientsForm } from './components/ClientsForm';
 export default function HomePage() {
     async function fetching() {
         const { data } = await axios.post('/clients', {
@@ -20,16 +19,16 @@ export default function HomePage() {
     return (
         <Container>
             <Typography variant='h3' textAlign={'center'} my={5}>
-                Lista de Articulos
+                Lista de Clientes
             </Typography>
             <Box sx={{}}>
-                <ArticlesTable />
+                <ClientsTable />
             </Box>
             <Typography variant='h3' textAlign={'center'} my={5}>
-                Añadir Articulos
+                Añadir Clientes
             </Typography>
             <Box>
-                <ArticleForm />
+                <ClientsForm />
             </Box>
         </Container>
     );

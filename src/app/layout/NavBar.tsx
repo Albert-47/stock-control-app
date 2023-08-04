@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Link from 'next/link';
 
 const pages = ['Articulos', 'Fabricantes', 'Ventas', 'Clientes'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -91,6 +92,8 @@ function ResponsiveAppBar() {
                             }}>
                             {pages.map((page) => (
                                 <MenuItem
+                                    component={Link}
+                                    href={page.toLowerCase()}
                                     key={page}
                                     onClick={handleCloseNavMenu}>
                                     <Typography textAlign='center'>
@@ -125,6 +128,8 @@ function ResponsiveAppBar() {
                         {pages.map((page) => (
                             <Button
                                 key={page}
+                                component={Link}
+                                href={page.toLowerCase()}
                                 onClick={handleCloseNavMenu}
                                 sx={{
                                     my: 2,
