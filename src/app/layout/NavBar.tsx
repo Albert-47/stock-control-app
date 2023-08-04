@@ -13,7 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 
-const pages = ['Articulos', 'Fabricantes', 'Ventas', 'Clientes'];
+const pages = [
+    'Articulos',
+    'Fabricantes',
+    'Ventas',
+    'Clientes',
+    'Envios',
+    'Facturas'
+];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
