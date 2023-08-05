@@ -5,9 +5,10 @@ import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import useForm from '@/utils/hooks/userForm';
+import axios from '@/libs/axios';
 
-export function ManufacturersForm() {
-    const [fields, handleChange] = useForm({
+export function ManufacturersForm({ setManufacturers }: any) {
+    const [fields, handleChange, setInputs] = useForm({
         codigofabricante: '',
         nombre: '',
         direccion: '',
@@ -15,10 +16,23 @@ export function ManufacturersForm() {
         telefono: '',
         formapago: ''
     });
+    async function posting(obj: any) {
+        const { data } = await axios.post('/manufacturers', obj);
+    }
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(fields);
+        await posting(fields);
+        fields.id = fields.codigofabricantes + 'muigrid';
+        setManufacturers((manufacturers: any) => [...manufacturers, fields]);
+        setInputs({
+            codigofabricante: '',
+            nombre: '',
+            direccion: '',
+            poblacion: '',
+            telefono: '',
+            formapago: ''
+        });
     }
     return (
         <Paper sx={{ padding: 4, bgColor: 'secondary' }} elevation={3}>
@@ -69,6 +83,15 @@ export function ManufacturersForm() {
                         name='telefono'
                         onChange={handleChange}
                         value={fields.telefono}
+                        color='primary'
+                    />
+                </FormControl>
+                <FormControl>
+                    <InputLabel>Forma de Pago</InputLabel>
+                    <Input
+                        name='formapago'
+                        onChange={handleChange}
+                        value={fields.formapago}
                         color='primary'
                     />
                 </FormControl>

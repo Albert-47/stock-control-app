@@ -5,16 +5,18 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { SalesForm } from './components/SalesForm';
+import { useState, useEffect } from 'react';
 export default function HomePage() {
+    const [sales, setSales] = useState([]);
+
     async function fetching() {
-        const { data } = await axios.post('/clients', {
-            nombre: 'Eduardo',
-            rif: 123,
-            direccion: 'Calle 123',
-            telefono: '123456789',
-            poblacion: 'Bogotá'
-        });
+        const { data } = await axios.get('/sales');
+        setSales(data);
     }
+
+    useEffect(() => {
+        fetching();
+    }, []);
 
     return (
         <Container>
@@ -22,13 +24,13 @@ export default function HomePage() {
                 Lista de Ventas
             </Typography>
             <Box sx={{}}>
-                <SalesTable />
+                <SalesTable sales={sales} />
             </Box>
             <Typography variant='h3' textAlign={'center'} my={5}>
                 Añadir Ventas
             </Typography>
             <Box>
-                <SalesForm />
+                <SalesForm setSales={setSales} />
             </Box>
         </Container>
     );

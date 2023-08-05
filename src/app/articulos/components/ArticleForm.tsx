@@ -5,9 +5,12 @@ import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import useForm from '@/utils/hooks/userForm';
+import axios from '@/libs/axios';
+import { useState, useEffect } from 'react';
+import { MenuItem, Select } from '@mui/material';
 
-export function ArticleForm() {
-    const [fields, handleChange] = useForm({
+export function ArticleForm({ setArticles }: any) {
+    const [fields, handleChange, setInputs] = useForm({
         codigoarticulo: '',
         nombre: '',
         color: '',
@@ -16,10 +19,36 @@ export function ArticleForm() {
         precioventa: ''
     });
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const [manufacturers, setManufacturers] = useState([]);
+
+    async function posting(obj: any) {
+        const { data } = await axios.post('/articles', obj);
+    }
+
+    async function fetchManufacturers() {
+        const { data } = await axios.get('/manufacturers');
+        setManufacturers(data);
+    }
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(fields);
+        await posting(fields);
+        fields.id = fields.rif + 'muigrid';
+        setArticles((article: any) => [...article, fields]);
+        setInputs({
+            codigoarticulo: '',
+            nombre: '',
+            color: '',
+            medidas: '',
+            fabricante: '',
+            precioventa: ''
+        });
     }
+
+    useEffect(() => {
+        fetchManufacturers();
+    }, []);
     return (
         <Paper sx={{ padding: 4, bgColor: 'secondary' }} elevation={3}>
             <Box
@@ -64,12 +93,20 @@ export function ArticleForm() {
                 </FormControl>
                 <FormControl>
                     <InputLabel>Fabricante</InputLabel>
-                    <Input
+                    <Select
                         name='fabricante'
                         onChange={handleChange}
                         value={fields.fabricante}
                         color='primary'
-                    />
+                        sx={{ width: '7rem', marginRight: '1rem' }}>
+                        {manufacturers.map((manufacturer: any) => (
+                            <MenuItem
+                                key={manufacturer.codigofabricante}
+                                value={manufacturer.codigofabricante}>
+                                {manufacturer.nombre}
+                            </MenuItem>
+                        ))}
+                    </Select>
                 </FormControl>
                 <FormControl>
                     <InputLabel>Precio de venta</InputLabel>

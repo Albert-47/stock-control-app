@@ -5,16 +5,18 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { ShippingsForm } from './components/ShippingsForm';
+import { useEffect, useState } from 'react';
 export default function HomePage() {
+    const [shppings, setShippings] = useState([]);
+
     async function fetching() {
-        const { data } = await axios.post('/clients', {
-            nombre: 'Eduardo',
-            rif: 123,
-            direccion: 'Calle 123',
-            telefono: '123456789',
-            poblacion: 'Bogotá'
-        });
+        const { data } = await axios.get('/shippings');
+        setShippings(data);
     }
+
+    useEffect(() => {
+        fetching();
+    }, []);
 
     return (
         <Container>
@@ -22,13 +24,13 @@ export default function HomePage() {
                 Lista de Envíos
             </Typography>
             <Box sx={{}}>
-                <ShippingsTable />
+                <ShippingsTable shippings={shppings} />
             </Box>
             <Typography variant='h3' textAlign={'center'} my={5}>
                 Añadir Envíos
             </Typography>
             <Box>
-                <ShippingsForm />
+                <ShippingsForm setShippings={setShippings} />
             </Box>
         </Container>
     );

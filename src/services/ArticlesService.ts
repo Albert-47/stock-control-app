@@ -5,7 +5,11 @@ export async function store(req: any) {
 
     try {
         let result =
-            await prisma.$executeRaw`INSERT INTO articulos (codigoarticulo, nombre, medidas, fabricante, precioventa, color) VALUES (${body.codigoarticulo}, ${body.nombre}, ${body.medidas}, ${body.fabricante}, ${body.precioventa}, ${body.color})`;
+            await prisma.$executeRaw`INSERT INTO articulos (codigoarticulo, nombre, medidas, fabricante, precioventa, color) VALUES (${Number(
+                body.codigoarticulo
+            )}, ${body.nombre}, ${body.medidas}, ${Number(
+                body.fabricante
+            )}, ${Number(body.precioventa)}, ${body.color})`;
         return result;
     } catch (error: any) {
         console.error(error);
