@@ -14,7 +14,7 @@ export default function ArticlesTable({ shippings }: any) {
             shipping.id = shipping.codigoenvio + 'muigrid';
         });
     }
-    const rows = shippings;
+    const rows = shippings || [];
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid

@@ -21,7 +21,7 @@ export default function ArticlesTable({ articles }: any) {
             article.id = article.codigoarticulo + 'muigrid';
         });
     }
-    const rows = articles;
+    const rows = articles || [];
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid

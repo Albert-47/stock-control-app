@@ -15,7 +15,7 @@ export default function ArticlesTable({ sales }: any) {
             sale.id = sale.codigoventa + 'muigrid';
         });
     }
-    const rows = sales;
+    const rows = sales || [];
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid

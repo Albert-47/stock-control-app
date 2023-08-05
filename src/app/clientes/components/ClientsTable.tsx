@@ -20,7 +20,7 @@ export default function ArticlesTable({ clients }: any) {
             client.id = client.rif + 'muigrid';
         });
     }
-    const rows = clients;
+    const rows = clients || [];
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid

@@ -25,7 +25,7 @@ export default function ArticlesTable({ manufacturers }: any) {
             manufacturer.id = manufacturer.rif + 'muigrid';
         });
     }
-    const rows = manufacturers;
+    const rows = manufacturers || [];
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
