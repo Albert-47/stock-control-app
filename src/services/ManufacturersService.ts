@@ -12,3 +12,12 @@ export async function store(req: any) {
         throw new Error(error);
     }
 }
+
+export async function get() {
+    try {
+        let result = await prisma.$queryRaw`SELECT * FROM fabricantes`;
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}

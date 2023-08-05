@@ -8,6 +8,7 @@ import useForm from '@/utils/hooks/userForm';
 
 export function ArticleForm() {
     const [fields, handleChange] = useForm({
+        codigoarticulo: '',
         nombre: '',
         color: '',
         medidas: '',
@@ -25,6 +26,15 @@ export function ArticleForm() {
                 onSubmit={handleSubmit}
                 component='form'
                 sx={{ display: 'flex', gap: 2 }}>
+                <FormControl>
+                    <InputLabel>Código de Artículo</InputLabel>
+                    <Input
+                        name='codigoarticulo'
+                        onChange={handleChange}
+                        value={fields.codigoarticulo}
+                        color='primary'
+                    />
+                </FormControl>
                 <FormControl>
                     <InputLabel>Nombre</InputLabel>
                     <Input

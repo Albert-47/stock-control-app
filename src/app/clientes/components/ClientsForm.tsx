@@ -5,9 +5,10 @@ import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import useForm from '@/utils/hooks/userForm';
+import axios from '@/libs/axios';
 
-export function ClientsForm() {
-    const [fields, handleChange] = useForm({
+export function ClientsForm({ setClients }: any) {
+    const [fields, handleChange, setInputs] = useForm({
         rif: '',
         nombre: '',
         direccion: '',
@@ -15,9 +16,22 @@ export function ClientsForm() {
         telefono: ''
     });
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function posting(obj: any) {
+        const { data } = await axios.post('/clients', obj);
+    }
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(fields);
+        await posting(fields);
+        fields.id = fields.rif + 'muigrid';
+        setClients((clients: any) => [...clients, fields]);
+        setInputs({
+            rif: '',
+            nombre: '',
+            direccion: '',
+            poblacion: '',
+            telefono: ''
+        });
     }
     return (
         <Paper sx={{ padding: 4, bgColor: 'secondary' }} elevation={3}>
