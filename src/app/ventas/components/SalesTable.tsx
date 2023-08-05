@@ -10,9 +10,11 @@ const columns: GridColDef[] = [
 ];
 
 export default function ArticlesTable({ sales }: any) {
-    sales.forEach((sale: any) => {
-        sale.id = sale.codigoventa + 'muigrid';
-    });
+    if (sales) {
+        sales.forEach((sale: any) => {
+            sale.id = sale.codigoventa + 'muigrid';
+        });
+    }
     const rows = sales;
     return (
         <div style={{ height: 400, width: '100%' }}>

@@ -20,9 +20,11 @@ const columns: GridColDef[] = [
 ];
 
 export default function ArticlesTable({ manufacturers }: any) {
-    manufacturers.forEach((manufacturer: any) => {
-        manufacturer.id = manufacturer.rif + 'muigrid';
-    });
+    if (manufacturers) {
+        manufacturers.forEach((manufacturer: any) => {
+            manufacturer.id = manufacturer.rif + 'muigrid';
+        });
+    }
     const rows = manufacturers;
     return (
         <div style={{ height: 400, width: '100%' }}>

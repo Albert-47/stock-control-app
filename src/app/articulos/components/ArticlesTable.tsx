@@ -16,9 +16,11 @@ const columns: GridColDef[] = [
 ];
 
 export default function ArticlesTable({ articles }: any) {
-    articles.forEach((article: any) => {
-        article.id = article.codigoarticulo + 'muigrid';
-    });
+    if (articles) {
+        articles.forEach((article: any) => {
+            article.id = article.codigoarticulo + 'muigrid';
+        });
+    }
     const rows = articles;
     return (
         <div style={{ height: 400, width: '100%' }}>

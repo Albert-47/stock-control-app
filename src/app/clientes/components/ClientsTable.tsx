@@ -15,9 +15,11 @@ const columns: GridColDef[] = [
 ];
 
 export default function ArticlesTable({ clients }: any) {
-    clients.forEach((client: any) => {
-        client.id = client.rif + 'muigrid';
-    });
+    if (clients) {
+        clients.forEach((client: any) => {
+            client.id = client.rif + 'muigrid';
+        });
+    }
     const rows = clients;
     return (
         <div style={{ height: 400, width: '100%' }}>

@@ -9,9 +9,11 @@ const columns: GridColDef[] = [
 ];
 
 export default function ArticlesTable({ shippings }: any) {
-    shippings.forEach((shipping: any) => {
-        shipping.id = shipping.codigoenvio + 'muigrid';
-    });
+    if (shippings) {
+        shippings.forEach((shipping: any) => {
+            shipping.id = shipping.codigoenvio + 'muigrid';
+        });
+    }
     const rows = shippings;
     return (
         <div style={{ height: 400, width: '100%' }}>
